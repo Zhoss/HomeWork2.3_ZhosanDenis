@@ -238,11 +238,15 @@ public class Car {
     }
 
     public void setKey(Key key) {
-        this.key = key;
+        if (this.key == null) {
+            this.key = key;
+        }
     }
 
     public void setInsurance(Insurance insurance) {
-        this.insurance = insurance;
+        if (this.insurance == null) {
+            this.insurance = insurance;
+        }
     }
 
     @Override
