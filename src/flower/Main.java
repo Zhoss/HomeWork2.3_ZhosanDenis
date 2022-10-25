@@ -17,7 +17,7 @@ public class Main {
         calculateBouquetCost(rose, 5, chrysanthemum, 2, peony, 4, gypsophila, 0);
     }
 
-    public static void calculateBouquetCost(Flower flower1, int flower1Number, Flower flower2, int flower2Number, Flower flower3, int flower3Number, Flower flower4, int flower4Number) {
+    private static void calculateBouquetCost(Flower flower1, int flower1Number, Flower flower2, int flower2Number, Flower flower3, int flower3Number, Flower flower4, int flower4Number) {
         int floristPaymentPercent = 10;
         double totalCost = 0;
         if ((flower1Number + flower2Number + flower3Number + flower4Number) % 2 == 0) {

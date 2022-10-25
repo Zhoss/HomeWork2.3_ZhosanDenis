@@ -14,23 +14,11 @@ public class Flower {
             this.flowerName = "Ромашка";
         }
 
-        if (flowerColor != null && !flowerColor.isBlank()) {
-            this.flowerColor = flowerColor;
-        } else {
-            this.flowerColor = "белый";
-        }
+        setFlowerColor(flowerColor);
 
-        if (country != null && !country.isBlank()) {
-            this.country = country;
-        } else {
-            this.country = "Россия";
-        }
+        setCountry(country);
 
-        if (cost >= 0) {
-            this.cost = cost;
-        } else {
-            this.cost = 0;
-        }
+        setCost(cost);
 
         if (lifeSpan > 0) {
             this.lifeSpan = lifeSpan;

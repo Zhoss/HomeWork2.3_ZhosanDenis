@@ -77,6 +77,17 @@ public class Car {
         public int getNumber() {
             return number;
         }
+
+        public void checkInsuranceValidity() {
+            if ((LocalDate.now().getYear() - getInsurance().getValidityPeriodYear()) > getInsurance().getStartPeriodYear()) {
+                System.out.println("Страховой полис просрочен. Требуется оформление нового страхового полиса!\n");
+            }
+        }
+        public void checkInsuranceNumber() {
+            if (getInsurance().getNumber() != 9) {
+                System.out.println("Номер страхового полиса указан некорректно");
+            }
+        }
     }
 
     private final String brand;
@@ -106,17 +117,9 @@ public class Car {
             this.model = "default";
         }
 
-        if (engineVolume > 0) {
-            this.engineVolume = engineVolume;
-        } else {
-            this.engineVolume = 1.5;
-        }
+        setEngineVolume(engineVolume);
 
-        if (color != null && !color.isBlank()) {
-            this.color = color;
-        } else {
-            this.color = "белый";
-        }
+        setColor(color);
 
         if (productionYear > 0) {
             this.productionYear = productionYear;
@@ -130,17 +133,7 @@ public class Car {
             this.productionCountry = "default";
         }
 
-        if (gearBox != null && !gearBox.isBlank()) {
-            if (gearBox.equals("АКПП")) {
-                this.gearBox = gearBox;
-            } else if (gearBox.equals("МКПП")) {
-                this.gearBox = gearBox;
-            } else if (gearBox.equals("вариатор")) {
-                this.gearBox = gearBox;
-            } else {
-                System.out.println("Выберите тип коробки передач: АКПП, МКПП или вариатор");
-            }
-        }
+        setGearBox(gearBox);
 
         if (bodyType != null && !bodyType.isBlank()) {
             this.bodyType = bodyType;
@@ -148,9 +141,7 @@ public class Car {
             this.bodyType = "седан";
         }
 
-        if (registrationNumber != null && !registrationNumber.isBlank() && registrationNumber.length() == 9) {
-            this.registrationNumber = registrationNumber;
-        }
+        setRegistrationNumber(registrationNumber);
 
         if (seatQuantity > 0) {
             this.seatQuantity = seatQuantity;
@@ -158,11 +149,7 @@ public class Car {
             this.seatQuantity = 5;
         }
 
-        if (tireType != null && !tireType.isBlank()) {
-            this.tireType = tireType;
-        } else {
-            this.tireType = "зимняя";
-        }
+        setTireType(tireType);
     }
 
     public String getBrand() {
@@ -218,23 +205,45 @@ public class Car {
     }
 
     public void setEngineVolume(double engineVolume) {
-        this.engineVolume = engineVolume;
+        if (engineVolume > 0) {
+            this.engineVolume = engineVolume;
+        } else {
+            this.engineVolume = 1.5;
+        }
     }
 
     public void setColor(String color) {
-        this.color = color;
+        if (color != null && !color.isBlank()) {
+            this.color = color;
+        } else {
+            this.color = "белый";
+        }
     }
 
     public void setGearBox(String gearBox) {
-        this.gearBox = gearBox;
+        if (gearBox.equals("АКПП")) {
+            this.gearBox = gearBox;
+        } else if (gearBox.equals("МКПП")) {
+            this.gearBox = gearBox;
+        } else if (gearBox.equals("вариатор")) {
+            this.gearBox = gearBox;
+        } else {
+            System.out.println("Выберите тип коробки передач: АКПП, МКПП или вариатор");
+        }
     }
 
     public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
+        if (registrationNumber != null && !registrationNumber.isBlank() && registrationNumber.length() == 9) {
+            this.registrationNumber = registrationNumber;
+        }
     }
 
     public void setTireType(String tireType) {
-        this.tireType = tireType;
+        if (tireType != null && !tireType.isBlank()) {
+            this.tireType = tireType;
+        } else {
+            this.tireType = "зимняя";
+        }
     }
 
     public void setKey(Key key) {
@@ -263,4 +272,27 @@ public class Car {
                 ", количество посадочных мест - " + seatQuantity +
                 ", тип резины - " + tireType;
     }
+    public void checkRegistrationNumber() {
+        String str = getRegistrationNumber();
+        if (str == null || str.isBlank() || str.length() != 9) {
+            System.out.println("Регистрационный номер не соответствует формату\n");
+        }
+        if (str != null && str.matches("^[а-яА-Я]\\d{3}[а-яА-Я]{2}\\d{3}")) {
+            System.out.println("Регистрационный номер указан верно\n");
+        } else {
+            System.out.println("Регистрационный номер указан неверно\n");
+        }
+    }
+    public void changeTireType() {
+        if (LocalDate.now().getMonthValue() <= 4 && LocalDate.now().getMonthValue() >= 10 && getTireType().equals("летняя")) {
+            System.out.println("Необходимо поменять шины с летней резиной на шины с зимней");
+            setTireType("зимняя");
+        } else if (LocalDate.now().getMonthValue() > 4 && LocalDate.now().getMonthValue() < 10 && getTireType().equals("зимняя")) {
+            System.out.println("Необходимо поменять шины с зимней резиной на шины с летней");
+            setTireType("летняя");
+        } else {
+            System.out.println("Все в порядке, замена шин не требуется");
+        }
+    }
 }
+

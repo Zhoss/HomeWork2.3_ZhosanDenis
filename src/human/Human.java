@@ -9,11 +9,7 @@ public class Human {
     private String job;
 
     public Human(String name, int age, String city, String job) {
-        if (name != null && !name.isBlank()) {
-            this.name = name;
-        } else {
-            this.name = "Информация не указана";
-        }
+        setName(name);
 
         if (age >= 0) {
             this.birthYear = LocalDate.now().getYear() - age;
@@ -21,17 +17,9 @@ public class Human {
             throw new RuntimeException("Возраст не может быть отрицательным");
         }
 
-        if (city != null && !city.isBlank()) {
-            this.city = city;
-        } else {
-            this.city = "Информация не указана";
-        }
+        setCity(city);
 
-        if (job != null && !job.isBlank()) {
-            this.job = job;
-        } else {
-            this.job = "Информация не указана";
-        }
+        setJob(job);
     }
 
     public String getName() {

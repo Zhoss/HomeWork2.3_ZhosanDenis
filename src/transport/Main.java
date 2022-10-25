@@ -1,8 +1,5 @@
 package transport;
 
-import java.time.LocalDate;
-import java.util.regex.Pattern;
-
 public class Main {
     public static void main(String[] args) {
         Car lada = new Car("Lada", "Grande", 1.7, "желтый", 2015, "Россия", "МКПП", "седан", "в545нм233", 5, "летняя");
@@ -30,43 +27,8 @@ public class Main {
         hyundai.setInsurance(hyundaiInsurance);
         System.out.println(hyundai + "\n");
 
-//        lada.setRegistrationNumber("dvsdvdsол");
-        checkRegistrationNumber(lada);
-        checkInsuranceValidity(lada);
-        checkInsuranceNumber(hyundai);
-    }
-
-    public static void changeTireType(Car car) {
-        if (LocalDate.now().getMonthValue() <= 4 && LocalDate.now().getMonthValue() >= 10 && car.getTireType().equals("летняя")) {
-            System.out.println("Необходимо поменять шины с летней резиной на шины с зимней");
-            car.setTireType("зимняя");
-        } else {
-            System.out.println("Все в порядке, замена шин не требуется");
-        }
-    }
-
-    public static void checkRegistrationNumber(Car car) {
-        String str = car.getRegistrationNumber();
-        if (str == null || str.isBlank() || str.length() != 9) {
-            System.out.println("Регистрационный номер не соответствует формату\n");
-        }
-//        Pattern pattern = Pattern.compile("^[а-яА-Я]\\d{3}[а-яА-Я]{2}\\d{3}");
-        if (str != null && str.matches("^[а-яА-Я]\\d{3}[а-яА-Я]{2}\\d{3}")) {
-            System.out.println("Регистрационный номер указан верно\n");
-        } else {
-            System.out.println("Регистрационный номер указан неверно\n");
-        }
-    }
-
-    public static void checkInsuranceValidity(Car car) {
-        if ((LocalDate.now().getYear() - car.getInsurance().getValidityPeriodYear()) > car.getInsurance().getStartPeriodYear()) {
-            System.out.println("Страховой полис просрочен. Требуется оформление нового страхового полиса!\n");
-        }
-    }
-
-    public static void checkInsuranceNumber(Car car) {
-        if (car.getInsurance().getNumber() != 9) {
-            System.out.println("Номер страхового полиса указан некорректно");
-        }
+        lada.checkRegistrationNumber();
+        lada.getInsurance().checkInsuranceValidity();
+        hyundai.getInsurance().checkInsuranceNumber();
     }
 }
